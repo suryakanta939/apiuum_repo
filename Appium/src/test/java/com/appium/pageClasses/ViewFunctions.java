@@ -86,7 +86,7 @@ public class ViewFunctions{
 
 		clickonViews();            
 		dragandDrop().click();
-		AndroidGesture.dragAndDrop(driver, dragElement(), dragElement());
+		AndroidGesture.dragAndDrop(driver, dragElement(), dropElement());
 
 
 	}
