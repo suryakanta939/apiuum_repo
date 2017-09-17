@@ -10,6 +10,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.Test;
 
 import com.appium.commonClasses.AndroidKeyboardFunctions;
+import com.appium.commonClasses.InvokeAppium;
 import com.appium.pageClasses.ViewFunctions;
 
 import io.appium.java_client.TouchAction;
@@ -24,25 +25,29 @@ public class testing {
   @Test
   public void f() throws MalformedURLException, InterruptedException 
   {
-	  File f=new File("ApiDemos-debug.apk");
-		File fs=new File(f,"");
-		DesiredCapabilities cap=new DesiredCapabilities();
-		  cap.setCapability(MobileCapabilityType.PLATFORM_NAME, MobilePlatform.ANDROID);
-		  cap.setCapability(MobileCapabilityType.DEVICE_NAME, "Android device");
-		  cap.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT, "25");
-		  cap.setCapability(MobileCapabilityType.APP, fs.getAbsolutePath());
-		driver=new AndroidDriver<>(new URL("http://127.0.0.1:4723/wd/hub"),cap);
+	 driver=InvokeAppium.runAppium("ApiDemos-debug.apk", "Android device");
+	//  driver=InvokeAppium.runAppium("bookmyshow.apk", "SuryaEmulator");
 		driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
+//		String text = "your text";
+//				AndroidElement el = driver.findElement(MobileBy
+//				                    .AndroidUIAutomator("new UiScrollable(new UiSelector()).scrollIntoView("
+//				                            + "new UiSelector().text(\""+text+"\"));"));
 		ViewFunctions vs=new ViewFunctions(driver);
 		vs.checkDargandDrop();
 		AndroidKeyboardFunctions.clickOnBack(driver);
-//		vs.checkAnimation();
-//		
-//		for(int i=0;i<2;i++){
-//			AndroidKeyboardFunctions.clickOnBack(driver);
-//			Thread.sleep(500);
-//		}
+		vs.checkAnimation();
+		
+		for(int i=0;i<2;i++){
+			AndroidKeyboardFunctions.clickOnBack(driver);
+			Thread.sleep(500);
+		}
 		
 		vs.selectingDate();
-  }
+		
+		for(int i=0;i<3;i++){
+			AndroidKeyboardFunctions.clickOnBack(driver);
+			Thread.sleep(500);
+		}
+		vs.spinnerFunction();
+ }
 }
