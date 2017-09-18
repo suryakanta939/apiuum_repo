@@ -34,20 +34,21 @@ public class testing {
 //				                            + "new UiSelector().text(\""+text+"\"));"));
 		ViewFunctions vs=new ViewFunctions(driver);
 		vs.checkDargandDrop();
-		AndroidKeyboardFunctions.clickOnBack(driver);
+		AndroidKeyboardFunctions.clickOnBack(driver,1);
 		vs.checkAnimation();
 		
-		for(int i=0;i<2;i++){
-			AndroidKeyboardFunctions.clickOnBack(driver);
-			Thread.sleep(500);
-		}
-		
+	
+			AndroidKeyboardFunctions.clickOnBack(driver,2);
+	
 		vs.selectingDate();
 		
-		for(int i=0;i<3;i++){
-			AndroidKeyboardFunctions.clickOnBack(driver);
-			Thread.sleep(500);
-		}
+	
+			AndroidKeyboardFunctions.clickOnBack(driver,3);
+
 		vs.spinnerFunction();
+		AndroidKeyboardFunctions.clickOnBack(driver,2);
+		vs.performexpandableFunction();
+		
+		
  }
 }

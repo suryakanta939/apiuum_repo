@@ -1,7 +1,10 @@
 package com.appium.commonClasses;
 
 import java.time.Duration;
+import java.util.List;
 
+import io.appium.java_client.MobileBy;
+import io.appium.java_client.MobileDriver;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
@@ -14,18 +17,18 @@ public class AndroidGesture {
 	}
 	public static void swipeToleft(AndroidDriver<AndroidElement> driver,AndroidElement src,AndroidElement dst){
 		TouchAction ta=new TouchAction(driver);
-		int srcDateXcod=src.getLocation().x;
+		int srcDateXcod=src.getLocation().getX();
 		System.out.println(srcDateXcod);
-		int srcDateYcod=src.getLocation().y;
+		int srcDateYcod=src.getLocation().getY();
 		System.out.println(srcDateYcod);
 		
-		int dstDateXcord=dst.getLocation().x;
+		int dstDateXcord=dst.getLocation().getX();
 		System.out.println(dstDateXcord);
-		int dstDateYcord=dst.getLocation().y;
+		int dstDateYcord=dst.getLocation().getY();
 		System.out.println(dstDateYcord);
 	
-		ta.longPress(src, srcDateXcod, srcDateYcod).moveTo(dst, dstDateXcord, dstDateYcord).release().perform();
-		
+		//ta.longPress(src, srcDateXcod, srcDateYcod).moveTo(dst, dstDateXcord, dstDateYcord).release().perform();
+		ta.press(src).waitAction(Duration.ofNanos(1000)).moveTo(0, dstDateYcord).release().perform();
 	}
 	public static void swipe(AndroidDriver<AndroidElement> driver,AndroidElement src,AndroidElement dst){
 		TouchAction ta=new TouchAction(driver);
@@ -34,7 +37,7 @@ public class AndroidGesture {
 	
 	public static void longPressOnElement(AndroidDriver<AndroidElement> driver,AndroidElement element){
 		TouchAction ta=new TouchAction(driver);
-		ta.longPress(element).waitAction(Duration.ofSeconds(500)).perform();
+		ta.longPress(element).waitAction(Duration.ofSeconds(500)).release().perform();
 	}
 	
 	/*
@@ -53,5 +56,54 @@ public class AndroidGesture {
 		String s2="\"));";
 		driver.findElementByAndroidUIAutomator(s1+id+s2);
 	}
+	/*
+	 * 
+	 * This function is to do tap operation
+	 * on the element by scrolling to top or bottom
+	 *  
+	 *  */
+	public static Boolean tapCellByTitle(AndroidDriver<AndroidElement> driver,String title) {
+        System.out.println("  tapCellByTitle(): " + title);
+        List<AndroidElement> elementList = driver.findElements(MobileBy.AndroidUIAutomator(
+                "new UiScrollable(new UiSelector().resourceIdMatches(\".*id/list\")).setMaxSearchSwipes(5).scrollIntoView("
+                        + "new UiSelector().text(\"" + title + "\"))"));
+        if (elementList.isEmpty())
+            return false;
+        else {
+           try {
+        	   //TouchAction act=new TouchAction((MobileDriver)driver);
+             new TouchAction((MobileDriver) driver).press(elementList.get(0)).waitAction(Duration.ofMillis(70)).release().perform();
+            } catch (Exception e) {
+              e.printStackTrace();
+            }
+        }
+        return true;
+        
+       
+    }
 	
+	/*
+	 * This function is to only scroll to the element
+	 * on vertical way both top and bottom
+	 * 
+	 * */
+	public static void scrollToDesiredElementInVertcalWay(AndroidDriver<AndroidElement> driver,String title){
+		
+	        System.out.println("  tapCellByTitle(): " + title);
+	        List<AndroidElement> elementList = driver.findElements(MobileBy.AndroidUIAutomator(
+	                "new UiScrollable(new UiSelector().resourceIdMatches(\".*id/list\")).setMaxSearchSwipes(5).scrollIntoView("
+	                        + "new UiSelector().text(\"" + title + "\"))"));
+	        
+	}
+	/*
+	 * This function is to only scroll to the element
+	 * on horizontal way both left and right
+	 * 
+	 * */
+	public static void scrollToHorizantalWay(AndroidDriver<AndroidElement> driver,String title){
+		List<AndroidElement> elementList = driver.findElements(MobileBy.AndroidUIAutomator(
+                "new UiScrollable(new UiSelector().resourceIdMatches(\".*id/list\")).setAsHorizontalList().setMaxSearchSwipes(5).scrollIntoView("
+                        + "new UiSelector().text(\"" + title + "\"))"));
+		
+	}
 }

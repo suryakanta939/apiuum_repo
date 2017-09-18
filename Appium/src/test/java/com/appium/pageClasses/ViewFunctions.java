@@ -3,6 +3,8 @@ package com.appium.pageClasses;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import org.springframework.aop.interceptor.ExposeBeanNameAdvisors;
+
 import com.appium.commonClasses.AndroidGesture;
 import com.appium.commonClasses.AndroidKeyboardFunctions;
 
@@ -236,7 +238,7 @@ public class ViewFunctions{
 		System.out.println(spinnerData().size());
 		for(int i=0;i<spinnerData().size();i++){
 			spinnerData().get(i).click();
-			colorChose().click();
+			selectingSpinnerDatacolor();
 			String color=spinnerData().get(i).getText();
 			System.out.println(color);
 			driver.manage().timeouts().implicitlyWait(3,TimeUnit.SECONDS);
@@ -250,7 +252,7 @@ public class ViewFunctions{
 			System.out.println(planet);
 			if(spinnerData().get(i).isDisplayed()){
 				spinnerData().get(i).click();
-				planteChose().click();
+				selectingSpinnerDataPlanet();
 			}else{
 				AndroidGesture.scrollToElemntBytext(driver, planet);
 				spinnerData().get(i).click();
@@ -269,9 +271,47 @@ public class ViewFunctions{
 		selectingSpinnerDatacolor();
 		colorData();
 		Thread.sleep(3000);
-		AndroidKeyboardFunctions.clickOnBack(driver);
+		AndroidKeyboardFunctions.clickOnBack(driver,1);
 		selectingSpinnerDataPlanet();
 		planetdata();
 	}
-
+/*****************************************************************************************/
+	/********************Below elements are for the expandable list*************************/
+	
+	
+	public static AndroidElement customAdopter(){
+		element=driver.findElementByXPath("//android.widget.TextView[@text='1. Custom Adapter']");
+		return element;
+	}
+	
+	public static AndroidElement peopleName(){
+		element=driver.findElementByXPath("//android.widget.TextView[@text='People Names']");
+		return element;
+	}
+	public static AndroidElement sampleAction(){
+		element=driver.findElementByXPath("//android.widget.TextView[@text='Sample action']");
+		return element;
+	}
+	
+	public void ExpandableListreading() throws InterruptedException{
+		expandableList().click();
+		customAdopter().click();
+		AndroidGesture.longPressOnElement(driver, peopleName());
+		Thread.sleep(2000);
+		if(sampleAction().isDisplayed()){
+			System.out.println(sampleAction().getText());
+		}
+	}
+	
+	public void performexpandableFunction() throws InterruptedException{
+		try{
+			if(expandableList().isDisplayed()){
+				ExpandableListreading();
+			}
+		}
+		catch(Throwable t){
+			AndroidGesture.scrollToDesiredElementInVertcalWay(driver,"Expandable Lists");
+			ExpandableListreading();
+		}
+	}
 }
