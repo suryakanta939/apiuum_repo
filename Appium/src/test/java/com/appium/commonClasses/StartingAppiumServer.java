@@ -68,7 +68,7 @@ public class StartingAppiumServer {
  /****************************************************/
  
  /*
-  * this function is to check weathe rthe server is running or not
+  * this function is to check whether the server is running or not
   * 
   * */
  public static boolean checkIfServerIsRunnning(int port) {
