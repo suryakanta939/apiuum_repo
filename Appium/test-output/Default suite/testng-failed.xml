@@ -3,11 +3,17 @@
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
   <test name="Default test(failed)">
     <classes>
-      <class name="com.appium.testCase.testing">
+      <class name="com.appium.testCase.ApiDemotestCases">
         <methods>
-          <include name="f"/>
+          <include name="selectDate"/>
+          <include name="animation"/>
+          <include name="expandableList"/>
+          <include name="spinnerDate"/>
+          <include name="setup"/>
+          <include name="tearDown"/>
+          <include name="dargAndDrop"/>
         </methods>
-      </class> <!-- com.appium.testCase.testing -->
+      </class> <!-- com.appium.testCase.ApiDemotestCases -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
